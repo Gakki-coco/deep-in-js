@@ -15,7 +15,7 @@ class EventHub {
     }
     off(eventName, fn) {
         // 把 fn 从 this.cache[eventName] 数组删掉
-        let index = indexOf(this.cache[eventName], 1)
+        let index = indexOf(this.cache[eventName], fn)
         if (index === -1) { return }
         this.cache[eventName].splice(index, 1)
     }
@@ -23,6 +23,11 @@ class EventHub {
 
 export default EventHub
 
+/**
+ * 帮助函数 indexOf
+ * @param array 
+ * @param item 
+ */
 function indexOf(array, item) {
     if (array === undefined) { return -1 }
     let index = -1
