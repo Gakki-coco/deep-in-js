@@ -13,6 +13,10 @@ function deepClone(source) {
                 dist = function () {
                     return source.apply(this, arguments)
                 }
+            } else if (source instanceof RegExp) {
+                dist = new RegExp(source.source, source.flags)
+            } else if (source instanceof Date) {
+                dist = new Date(source)
             } else {
                 dist = new Object()
             }
@@ -28,7 +32,7 @@ function deepClone(source) {
 }
 
 function findCache(source) {
-    for(let i = 0; i<cache.length; i++) {
+    for (let i = 0; i < cache.length; i++) {
         // 用 source 对比是否遍历到环，返回 dist
         if (cache[i][0] === source) {
             return cache[i][1]

@@ -66,7 +66,7 @@ describe('deepClone', () => {
             assert(a.self !== a2.self)
         })
         xit('不会爆栈', () => {
-            const a = {child: null}
+            const a = { child: null }
             let b = a
             for (let i = 0; i < 10000; i++) {
                 b.child = {
@@ -77,6 +77,27 @@ describe('deepClone', () => {
             const a2 = deepClone(a)
             assert(a !== a2)
             assert(a.child !== a2.child)
+        })
+        it('可以复制正则表达式', () => {
+            const a = /hi\d+/ig
+            a.xxx = { yyy: { zzz: 1 } }
+            const a2 = deepClone(a)
+            assert(a !== a2)
+            assert(a.source === a2.source)
+            assert(a.flags === a2.flags)
+            assert(a.xxx.yyy.zzz === a2.xxx.yyy.zzz)
+            assert(a.xxx.yyy !== a2.xxx.yyy)
+            assert(a.xxx !== a2.xxx)
+        })
+        it('可以复制日期', () => {
+            const a = new Date()
+            a.xxx = { yyy: { zzz: 1 } }
+            const a2 = deepClone(a)
+            assert(a !== a2)
+            assert(a.getTime() === a2.getTime())
+            assert(a.xxx.yyy.zzz === a2.xxx.yyy.zzz)
+            assert(a.xxx.yyy !== a2.xxx.yyy)
+            assert(a.xxx !== a2.xxx)
         })
     })
 })
