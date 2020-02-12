@@ -34,6 +34,7 @@ function findCache(source) {
             return cache[i][1]
         }
     }
+    return undefined
 }
 
 module.exports = deepClone
