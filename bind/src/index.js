@@ -1,7 +1,7 @@
-function bind(asthis) {
+function bind(asthis, ...args) {
     const fn = this
-    return function () {
-        return fn.call(asthis)
+    return function (...args2) {
+        return fn.call(asthis, ...args, ...args2)
     }
 }
 
